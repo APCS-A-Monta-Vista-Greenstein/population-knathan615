@@ -17,7 +17,7 @@ public class Population {
 	private List<City> cities;
 
 	// sorting utility
-	SortMethods sorter; 
+	private SortMethods sorter; 
 	
 	// US data file
 	private final String DATA_FILE = "usPopData2017.txt";
@@ -83,14 +83,58 @@ public class Population {
       }
       else if(choice == 5)
       {
-        
+		String chosenState;
+        do
+        {
+		  chosenState = Prompt.getString("Enter state name (ie. Alabama)")
+		}
+		while(isInvalidState(chosenState));
+		System.out.println();
+		System.out.println("Fifty most populous cities in "+chosenState);
+		printCities(findPopulousCities(chosenState));
       }
       else 
       {
-        
+        String chosenName;
+        do
+        {
+		  chosenName = Prompt.getString("Enter city name");
+		}
+		while(isValidName(chosenName));
       }
       System.out.println();
     }
+  }
+  /**
+   * Tells whether the input given by the user is a valid state
+   * @param	chosenState		the user input
+   * @return true - the input is a valid state; false - otherwise
+   */
+  public boolean isValidState(String chosenState)
+  {
+	for(int i=0; i<cities.size(); i++)
+	{
+		/* Checks if the string is a state in the database */
+		if(chosenState.equalsIgnoreCase(cities.get(i).getState()))
+			return true;
+	}
+	System.out.println("ERROR: "+chosenState+" is not valid");
+	return false;
+  }
+  /**
+   * Tells whether the input given by the user is a valid city name
+   * @param	chosenName		the user input
+   * @return true - the input is a valid city name; false - otherwise
+   */
+  public boolean isValidName(String chosenName)
+  {
+	for(int i=0; i<cities.size(); i++)
+	{
+	  if(chosenName.equalsIgnoreCase(cities.get(i).getName()))
+		return true;
+	}
+	System.out.println("ERROR: "+chosenName+" is not valid");
+	return false;
   }
   /**
    * Reads from the usPopData2017.txt file to load data into the cities list
