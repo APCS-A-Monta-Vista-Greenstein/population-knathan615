@@ -55,6 +55,7 @@ public class Population {
         System.out.println("Fifty least populous cities");
         timeElapsed = sorter.sortPopulationAscending(cities);
         printCities(cities);
+        System.out.println();
         System.out.println("Elapsed Time "+timeElapsed+" milliseconds");
       }
       else if(choice == 2)
@@ -83,27 +84,33 @@ public class Population {
       }
       else if(choice == 5)
       {
-		String chosenState;
+		    String chosenState;
         do
         {
-		  chosenState = Prompt.getString("Enter state name (ie. Alabama)")
-		}
-		while(isInvalidState(chosenState));
-		System.out.println();
-		System.out.println("Fifty most populous cities in "+chosenState);
-		printCities(findPopulousCities(chosenState));
+		      chosenState = Prompt.getString("Enter state name (ie. Alabama)");
+		    }
+		    while(!isValidState(chosenState));
+		    System.out.println();
+		    System.out.println("Fifty most populous cities in "+chosenState);
+		    printCities(findPopulousCities(chosenState));
       }
-      else 
+      else if(choice == 6)
       {
         String chosenName;
         do
         {
-		  chosenName = Prompt.getString("Enter city name");
-		}
-		while(isValidName(chosenName));
+		      chosenName = Prompt.getString("Enter city name");
+		    }
+		    while(!isValidName(chosenName));
+        System.out.println();
+        System.out.println("City "+chosenName+" by population");
+        printCities(findCitiesByName(chosenName));
       }
+      else
+        continue;
       System.out.println();
     }
+    System.out.println("Thanks for using Population!");
   }
   /**
    * Tells whether the input given by the user is a valid state
@@ -128,13 +135,13 @@ public class Population {
    */
   public boolean isValidName(String chosenName)
   {
-	for(int i=0; i<cities.size(); i++)
-	{
-	  if(chosenName.equalsIgnoreCase(cities.get(i).getName()))
-		return true;
-	}
-	System.out.println("ERROR: "+chosenName+" is not valid");
-	return false;
+  	for(int i=0; i<cities.size(); i++)
+  	{
+  	  if(chosenName.equalsIgnoreCase(cities.get(i).getName()))
+  		  return true;
+  	}
+  	System.out.println("ERROR: "+chosenName+" is not valid");
+  	return false;
   }
   /**
    * Reads from the usPopData2017.txt file to load data into the cities list

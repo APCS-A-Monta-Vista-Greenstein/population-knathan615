@@ -57,11 +57,11 @@ public class SortMethods {
     {
       boolean keepLooking = true;
       int currentSwapped = outer;
-      int inner = outer;
+      int inner = outer-1;
       /* Keeps swapping towards the sorted part of the list until the element finds its place */
-      while((inner >= 1) && cities.get(inner).compareNameTo(cities.get(inner-1)) < 0)
+      while((inner >= 0) && cities.get(inner+1).compareNameTo(cities.get(inner)) < 0)
       {
-        swap(cities, inner-1, inner);
+        swap(cities, inner, inner+1);
         inner--;
       }
     }
